@@ -48,6 +48,16 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#1-theoretical-foundation">1. Theoretical Foundation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-analysis-of-the-range">2. Analysis of the Range</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-practical-applications">3. Practical Applications</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-implementation">4. Implementation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -172,7 +182,158 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
 <h1 id="problem-1">Problem 1</h1>
-<p>Lorem ipsum.....</p>
+<p>Below is a detailed exploration of the problem, organized into clear sections that address each of the tasks.</p>
+<hr/>
+<h3 id="1-theoretical-foundation">1. Theoretical Foundation</h3>
+<p><strong>Derivation of the Equations of Motion:</strong></p>
+<p>For a projectile launched with an initial velocity <span class="arithmatex">\( v_0 \)</span> at an angle <span class="arithmatex">\( \theta \)</span> from the horizontal, we decompose the motion into horizontal and vertical components:</p>
+<ul>
+<li>
+<p><strong>Horizontal motion:</strong>
+  [
+  v_{x} = v_0 \cos \theta, \quad x(t) = v_0 \cos \theta \, t
+  ]
+  (Since there is no horizontal acceleration in the ideal case, neglecting air resistance.)</p>
+</li>
+<li>
+<p><strong>Vertical motion:</strong>
+  [
+  v_{y} = v_0 \sin \theta, \quad y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2
+  ]
+  where <span class="arithmatex">\( g \)</span> is the acceleration due to gravity.</p>
+</li>
+</ul>
+<p><strong>Solving the Differential Equation:</strong></p>
+<p>The vertical motion equation is derived from the second-order differential equation:
+[
+\frac{d^2 y}{dt^2} = -g.
+]
+Integrating once gives the vertical velocity:
+[
+\frac{dy}{dt} = v_0 \sin \theta - g t,
+]
+and integrating again yields the vertical displacement:
+[
+y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2 + y_0.
+]
+For a launch from ground level, <span class="arithmatex">\( y_0 = 0 \)</span>.</p>
+<p><strong>Family of Solutions:</strong></p>
+<p>The equations show that the trajectory depends on:
+- The initial velocity <span class="arithmatex">\( v_0 \)</span>
+- The launch angle <span class="arithmatex">\( \theta \)</span>
+- The gravitational acceleration <span class="arithmatex">\( g \)</span></p>
+<p>Changing any of these parameters alters the solution’s shape and range, leading to a family of trajectories.</p>
+<hr/>
+<h3 id="2-analysis-of-the-range">2. Analysis of the Range</h3>
+<p><strong>Determining the Range:</strong></p>
+<p>For a projectile launched from the ground, the range <span class="arithmatex">\( R \)</span> is the horizontal distance traveled when the projectile returns to <span class="arithmatex">\( y = 0 \)</span> (other than the trivial solution <span class="arithmatex">\( t = 0 \)</span>). Setting <span class="arithmatex">\( y(t) = 0 \)</span>:
+[
+v_0 \sin \theta \, t - \frac{1}{2} g t^2 = 0,
+]
+which factors as:
+[
+t \left(v_0 \sin \theta - \frac{1}{2} g t\right) = 0.
+]
+Ignoring <span class="arithmatex">\( t = 0 \)</span>, the time of flight is:
+[
+t = \frac{2 v_0 \sin \theta}{g}.
+]</p>
+<p>The range is then:
+[
+R = x\left(\frac{2 v_0 \sin \theta}{g}\right) = v_0 \cos \theta \cdot \frac{2 v_0 \sin \theta}{g} = \frac{v_0^2 \sin 2\theta}{g}.
+]</p>
+<p><strong>Dependence on the Angle of Projection:</strong></p>
+<ul>
+<li>The term <span class="arithmatex">\(\sin 2\theta\)</span> implies that <span class="arithmatex">\( R \)</span> reaches its maximum when <span class="arithmatex">\(2\theta = 90^\circ\)</span> or <span class="arithmatex">\( \theta = 45^\circ\)</span>.</li>
+<li>For angles less than or greater than <span class="arithmatex">\(45^\circ\)</span>, the range decreases.</li>
+</ul>
+<p><strong>Influence of Other Parameters:</strong></p>
+<ul>
+<li><strong>Initial Velocity (<span class="arithmatex">\(v_0\)</span>)</strong>: The range increases quadratically with <span class="arithmatex">\(v_0\)</span> since <span class="arithmatex">\(R \propto v_0^2\)</span>.</li>
+<li><strong>Gravitational Acceleration (<span class="arithmatex">\(g\)</span>)</strong>: A larger <span class="arithmatex">\(g\)</span> results in a smaller range, as <span class="arithmatex">\(R \propto 1/g\)</span>.</li>
+</ul>
+<hr/>
+<h3 id="3-practical-applications">3. Practical Applications</h3>
+<p>Projectile motion is more than a textbook problem. By adjusting the model, you can describe various real-world scenarios:</p>
+<ul>
+<li>
+<p><strong>Uneven Terrain</strong>:<br/>
+  If the launch or landing height differs from the ground level, the time of flight and consequently the range must be recalculated. The vertical displacement equation becomes:
+  [
+  y(t) = y_0 + v_0 \sin \theta \, t - \frac{1}{2} g t^2,
+  ]
+  and solving for <span class="arithmatex">\( t \)</span> when <span class="arithmatex">\( y(t) \)</span> equals the landing height introduces quadratic complexities.</p>
+</li>
+<li>
+<p><strong>Air Resistance</strong>:<br/>
+  Incorporating drag forces (typically proportional to the velocity squared or linearly with velocity) complicates the motion equations and usually requires numerical methods for a solution. Air resistance shortens the range and alters the optimal launch angle.</p>
+</li>
+<li>
+<p><strong>Sporting Applications</strong>:<br/>
+  In sports such as soccer or basketball, factors like spin, air resistance, and varying launch heights are crucial. Engineers and coaches use adapted models to optimize performance and training strategies.</p>
+</li>
+<li>
+<p><strong>Ballistics and Rocketry</strong>:<br/>
+  In military and space applications, understanding projectile motion helps in targeting, trajectory optimization, and understanding the effects of atmospheric conditions.</p>
+</li>
+</ul>
+<hr/>
+<h3 id="4-implementation">4. Implementation</h3>
+<p><strong>Developing a Computational Simulation:</strong></p>
+<p>A simple simulation tool can be developed in Python. Here’s an outline of how one might implement this:</p>
+<ol>
+<li><strong>Define Parameters:</strong></li>
+<li>Initial velocity <span class="arithmatex">\( v_0 \)</span></li>
+<li>Launch angle <span class="arithmatex">\( \theta \)</span> (or a range of angles)</li>
+<li>Gravitational acceleration <span class="arithmatex">\( g \)</span></li>
+<li>
+<p>Optional: Launch height <span class="arithmatex">\( y_0 \)</span></p>
+</li>
+<li>
+<p><strong>Compute the Trajectory:</strong></p>
+</li>
+<li>For each <span class="arithmatex">\( \theta \)</span> value, compute the time of flight and range using the derived equations.</li>
+<li>
+<p>For enhanced realism, include air resistance by solving the modified differential equations numerically (e.g., using the Runge–Kutta method).</p>
+</li>
+<li>
+<p><strong>Visualization:</strong></p>
+</li>
+<li>Use matplotlib to plot the range <span class="arithmatex">\( R \)</span> as a function of <span class="arithmatex">\( \theta \)</span>.</li>
+<li>Plot trajectories for different initial conditions on the same graph to compare their behaviors.</li>
+</ol>
+<p><strong>Sample Python Code:</strong></p>
+<p>Below is a simplified code snippet that computes and plots the range as a function of the launch angle for a projectile launched from ground level without air resistance:</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+v0 = 50  # initial velocity in m/s
+g = 9.81  # gravitational acceleration in m/s^2
+angles = np.linspace(0, 90, 180)  # angles from 0 to 90 degrees
+
+# Compute range for each angle
+ranges = (v0**2 * np.sin(np.deg2rad(2 * angles))) / g
+
+# Plotting the results
+plt.figure(figsize=(8, 5))
+plt.plot(angles, ranges, label='Range vs. Angle')
+plt.xlabel('Launch Angle (degrees)')
+plt.ylabel('Range (meters)')
+plt.title('Projectile Range as a Function of Launch Angle')
+plt.legend()
+plt.grid(True)
+plt.show()
+</code></pre>
+<p>This code calculates the range for each angle and produces a clear plot. It demonstrates how the maximum range occurs at <span class="arithmatex">\(45^\circ\)</span> under ideal conditions.</p>
+<hr/>
+<h3 id="conclusion">Conclusion</h3>
+<p>This analysis has provided:
+- A derivation of the projectile motion equations from first principles.
+- An explanation of how the range depends on the launch angle and other parameters.
+- Insights into practical applications and adaptations of the model.
+- A framework for computational simulation and visualization.</p>
+<p>This comprehensive approach not only reinforces fundamental physics but also shows how these principles can be applied to solve real-world problems.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
