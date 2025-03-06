@@ -1,5 +1,3 @@
-# Problem 1
-
 Below is a detailed exploration of the problem, organized into clear sections that address each of the tasks.
 
 ---
@@ -11,31 +9,34 @@ Below is a detailed exploration of the problem, organized into clear sections th
 For a projectile launched with an initial velocity \( v_0 \) at an angle \( \theta \) from the horizontal, we decompose the motion into horizontal and vertical components:
 
 - **Horizontal motion:**
-  \[
+  $$[
   v_{x} = v_0 \cos \theta, \quad x(t) = v_0 \cos \theta \, t
-  \]
+  $$
+
   (Since there is no horizontal acceleration in the ideal case, neglecting air resistance.)
 
 - **Vertical motion:**
-  \[
+  $$
   v_{y} = v_0 \sin \theta, \quad y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2
-  \]
+  $$
+
   where \( g \) is the acceleration due to gravity.
 
 **Solving the Differential Equation:**
 
 The vertical motion equation is derived from the second-order differential equation:
-\[
+$$
 \frac{d^2 y}{dt^2} = -g.
-\]
+$$
+
 Integrating once gives the vertical velocity:
-\[
+$$
 \frac{dy}{dt} = v_0 \sin \theta - g t,
-\]
+$$
 and integrating again yields the vertical displacement:
-\[
+$$
 y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2 + y_0.
-\]
+$$
 For a launch from ground level, \( y_0 = 0 \).
 
 **Family of Solutions:**
@@ -54,44 +55,49 @@ Changing any of these parameters alters the solution’s shape and range, leadin
 **Determining the Range:**
 
 For a projectile launched from the ground, the range \( R \) is the horizontal distance traveled when the projectile returns to \( y = 0 \) (other than the trivial solution \( t = 0 \)). Setting \( y(t) = 0 \):
-\[
+$$
 v_0 \sin \theta \, t - \frac{1}{2} g t^2 = 0,
-\]
+$$
 which factors as:
-\[
+$$
 t \left(v_0 \sin \theta - \frac{1}{2} g t\right) = 0.
-\]
+$$
 Ignoring \( t = 0 \), the time of flight is:
-\[
+$$
 t = \frac{2 v_0 \sin \theta}{g}.
-\]
+$$
 
 The range is then:
-\[
+$$
 R = x\left(\frac{2 v_0 \sin \theta}{g}\right) = v_0 \cos \theta \cdot \frac{2 v_0 \sin \theta}{g} = \frac{v_0^2 \sin 2\theta}{g}.
-\]
-
+$$
 **Dependence on the Angle of Projection:**
-
-- The term \(\sin 2\theta\) implies that \( R \) reaches its maximum when \(2\theta = 90^\circ\) or \( \theta = 45^\circ\).
-- For angles less than or greater than \(45^\circ\), the range decreases.
+$$
+$$
+- The term \(\sin 2\theta\) implies that \( R \) reaches its maximum when \(2\theta = 90^\circ\) or \( \theta = 45^\circ\). 
+$$
+$$- For angles less than or greater than \(45^\circ\), the range decreases.
+$$
 
 **Influence of Other Parameters:**
-
+$$
 - **Initial Velocity (\(v_0\))**: The range increases quadratically with \(v_0\) since \(R \propto v_0^2\).
-- **Gravitational Acceleration (\(g\))**: A larger \(g\) results in a smaller range, as \(R \propto 1/g\).
-
+$$
+$$- **Gravitational Acceleration (\(g\))**: A larger \(g\) results in a smaller range, as \(R \propto 1/g\).
+$$
 ---
-
+$$
 ### 3. Practical Applications
+$$
 
 Projectile motion is more than a textbook problem. By adjusting the model, you can describe various real-world scenarios:
+$$
 
 - **Uneven Terrain**:  
   If the launch or landing height differs from the ground level, the time of flight and consequently the range must be recalculated. The vertical displacement equation becomes:
-  \[
+  $$
   y(t) = y_0 + v_0 \sin \theta \, t - \frac{1}{2} g t^2,
-  \]
+  $$
   and solving for \( t \) when \( y(t) \) equals the landing height introduces quadratic complexities.
 
 - **Air Resistance**:  
@@ -106,25 +112,29 @@ Projectile motion is more than a textbook problem. By adjusting the model, you c
 ---
 
 ### 4. Implementation
-
+$$
 **Developing a Computational Simulation:**
-
+$$
 A simple simulation tool can be developed in Python. Here’s an outline of how one might implement this:
-
+$$
+$$
 1. **Define Parameters:**
    - Initial velocity \( v_0 \)
    - Launch angle \( \theta \) (or a range of angles)
    - Gravitational acceleration \( g \)
    - Optional: Launch height \( y_0 \)
-
+$$
+$$
 2. **Compute the Trajectory:**
    - For each \( \theta \) value, compute the time of flight and range using the derived equations.
    - For enhanced realism, include air resistance by solving the modified differential equations numerically (e.g., using the Runge–Kutta method).
-
+$$
+$$
 3. **Visualization:**
    - Use matplotlib to plot the range \( R \) as a function of \( \theta \).
    - Plot trajectories for different initial conditions on the same graph to compare their behaviors.
-
+$$
+$$
 **Sample Python Code:**
 
 Below is a simplified code snippet that computes and plots the range as a function of the launch angle for a projectile launched from ground level without air resistance:
