@@ -71,7 +71,9 @@ $$
 
 **Dependence on the Angle of Projection:**
 
-- The term $ \sin 2\theta $ implies that $ R $ reaches its maximum when $ 2\theta = 90^\circ $ or $ \theta = 45^\circ $.
+ The term $\sin 2\theta$ implies that $ R $ reaches its maximum when $ 2\theta = 90^\circ$ or $ \theta = 45^\circ$
+
+- For angles less than or greater than $45^\circ$, the range decreases.
 - For angles less than or greater than $ 45^\circ $, the range decreases.
 
 **Influence of Other Parameters:**
