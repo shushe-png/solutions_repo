@@ -115,6 +115,7 @@ $$
 $$
 **Developing a Computational Simulation:**
 $$
+$
 A simple simulation tool can be developed in Python. Here’s an outline of how one might implement this:
 $$
 $$
