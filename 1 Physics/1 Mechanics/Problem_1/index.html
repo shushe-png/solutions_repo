@@ -177,33 +177,33 @@
 <p><strong>Derivation of the Equations of Motion:</strong></p>
 <p>For a projectile launched with an initial velocity <span class="arithmatex">\( v_0 \)</span> at an angle <span class="arithmatex">\( \theta \)</span> from the horizontal, we decompose the motion into horizontal and vertical components:</p>
 <ul>
-<li><strong>Horizontal motion:</strong>
-  $$[
-  v_{x} = v_0 \cos \theta, \quad x(t) = v_0 \cos \theta \, t
-  $$</li>
+<li><strong>Horizontal motion:</strong></li>
 </ul>
+<div class="arithmatex">\[
+v_{x} = v_0 \cos \theta, \quad x(t) = v_0 \cos \theta \, t
+\]</div>
 <p>(Since there is no horizontal acceleration in the ideal case, neglecting air resistance.)</p>
 <ul>
-<li><strong>Vertical motion:</strong>
-  $$
-  v_{y} = v_0 \sin \theta, \quad y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2
-  $$</li>
+<li><strong>Vertical motion:</strong></li>
 </ul>
+<div class="arithmatex">\[
+v_{y} = v_0 \sin \theta, \quad y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2
+\]</div>
 <p>where <span class="arithmatex">\( g \)</span> is the acceleration due to gravity.</p>
 <p><strong>Solving the Differential Equation:</strong></p>
 <p>The vertical motion equation is derived from the second-order differential equation:
 $$
 \frac{d^2 y}{dt^2} = -g.
 $$</p>
-<p>Integrating once gives the vertical velocity:
-$$
+<p>Integrating once gives the vertical velocity:</p>
+<div class="arithmatex">\[
 \frac{dy}{dt} = v_0 \sin \theta - g t,
-$$
-and integrating again yields the vertical displacement:
-$$
+\]</div>
+<p>and integrating again yields the vertical displacement:</p>
+<div class="arithmatex">\[
 y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2 + y_0.
-$$
-For a launch from ground level, <span class="arithmatex">\( y_0 = 0 \)</span>.</p>
+\]</div>
+<p>For a launch from ground level, <span class="arithmatex">\( y_0 = 0 \)</span>.</p>
 <p><strong>Family of Solutions:</strong></p>
 <p>The equations show that the trajectory depends on:
 - The initial velocity <span class="arithmatex">\( v_0 \)</span>
@@ -213,41 +213,39 @@ For a launch from ground level, <span class="arithmatex">\( y_0 = 0 \)</span>.</
 <hr/>
 <h3 id="2-analysis-of-the-range">2. Analysis of the Range</h3>
 <p><strong>Determining the Range:</strong></p>
-<p>For a projectile launched from the ground, the range <span class="arithmatex">\( R \)</span> is the horizontal distance traveled when the projectile returns to <span class="arithmatex">\( y = 0 \)</span> (other than the trivial solution <span class="arithmatex">\( t = 0 \)</span>). Setting <span class="arithmatex">\( y(t) = 0 \)</span>:
-$$
+<p>For a projectile launched from the ground, the range <span class="arithmatex">\( R \)</span> is the horizontal distance traveled when the projectile returns to <span class="arithmatex">\(y = 0\)</span> (other than the trivial solution <span class="arithmatex">\(t = 0\)</span>). Setting <span class="arithmatex">\( y(t) = 0 \)</span>:</p>
+<div class="arithmatex">\[
 v_0 \sin \theta \, t - \frac{1}{2} g t^2 = 0,
-$$
-which factors as:
-$$
+\]</div>
+<p>which factors as:</p>
+<div class="arithmatex">\[
 t \left(v_0 \sin \theta - \frac{1}{2} g t\right) = 0.
-$$
-Ignoring <span class="arithmatex">\( t = 0 \)</span>, the time of flight is:
-$$
+\]</div>
+<p>Ignoring <span class="arithmatex">\( t = 0 \)</span>, the time of flight is:</p>
+<div class="arithmatex">\[
 t = \frac{2 v_0 \sin \theta}{g}.
-$$</p>
-<p>The range is then:
-$$
+\]</div>
+<p>The range is then:</p>
+<div class="arithmatex">\[
 R = x\left(\frac{2 v_0 \sin \theta}{g}\right) = v_0 \cos \theta \cdot \frac{2 v_0 \sin \theta}{g} = \frac{v_0^2 \sin 2\theta}{g}.
-$$
-<strong>Dependence on the Angle of Projection:</strong>
-$$
-$$
-- The term <span class="arithmatex">\(\sin 2\theta\)</span> implies that <span class="arithmatex">\( R \)</span> reaches its maximum when <span class="arithmatex">\(2\theta = 90^\circ\)</span> or <span class="arithmatex">\( \theta = 45^\circ\)</span>. 
-$$
-$$- For angles less than or greater than <span class="arithmatex">\(45^\circ\)</span>, the range decreases.
-$$</p>
+\]</div>
+<p><strong>Dependence on the Angle of Projection:</strong></p>
+<ul>
+<li>
+<p>The term <span class="arithmatex">\(\sin 2\theta\)</span> implies that <span class="arithmatex">\( R \)</span> reaches its maximum when <span class="arithmatex">\(2\theta = 90^\circ\)</span> or <span class="arithmatex">\( \theta = 45^\circ\)</span>. </p>
+</li>
+<li>
+<p>For angles less than or greater than <span class="arithmatex">\(45^\circ\)</span>, the range decreases.</p>
+</li>
+</ul>
 <p><strong>Influence of Other Parameters:</strong>
-$$
-- <strong>Initial Velocity (<span class="arithmatex">\(v_0\)</span>)</strong>: The range increases quadratically with <span class="arithmatex">\(v_0\)</span> since <span class="arithmatex">\(R \propto v_0^2\)</span>.
-$$
-$$- <strong>Gravitational Acceleration (<span class="arithmatex">\(g\)</span>)</strong>: A larger <span class="arithmatex">\(g\)</span> results in a smaller range, as <span class="arithmatex">\(R \propto 1/g\)</span>.
-$$</p>
+- <strong>Initial Velocity (<span class="arithmatex">\(v_0\)</span>)</strong>: The range increases quadratically with <span class="arithmatex">\(v_0\)</span> since <span class="arithmatex">\(R \propto v_0^2\)</span>.</p>
+<ul>
+<li><strong>Gravitational Acceleration (<span class="arithmatex">\(g\)</span>)</strong>: A larger <span class="arithmatex">\(g\)</span> results in a smaller range, as <span class="arithmatex">\(R \propto 1/g\)</span>.</li>
+</ul>
 <hr/>
-<p>$$</p>
 <h3 id="3-practical-applications">3. Practical Applications</h3>
-<p>$$</p>
-<p>Projectile motion is more than a textbook problem. By adjusting the model, you can describe various real-world scenarios:
-$$</p>
+<p>Projectile motion is more than a textbook problem. By adjusting the model, you can describe various real-world scenarios:</p>
 <ul>
 <li>
 <p><strong>Uneven Terrain</strong>:<br/>
@@ -272,31 +270,30 @@ $$</p>
 </ul>
 <hr/>
 <h3 id="4-implementation">4. Implementation</h3>
-<p>$$
-<strong>Developing a Computational Simulation:</strong>
-$$
-$
-A simple simulation tool can be developed in Python. Here’s an outline of how one might implement this:
-$$
-$$
-1. <strong>Define Parameters:</strong>
-   - Initial velocity <span class="arithmatex">\( v_0 \)</span>
-   - Launch angle <span class="arithmatex">\( \theta \)</span> (or a range of angles)
-   - Gravitational acceleration <span class="arithmatex">\( g \)</span>
-   - Optional: Launch height <span class="arithmatex">\( y_0 \)</span>
-$$
-$$
-2. <strong>Compute the Trajectory:</strong>
-   - For each <span class="arithmatex">\( \theta \)</span> value, compute the time of flight and range using the derived equations.
-   - For enhanced realism, include air resistance by solving the modified differential equations numerically (e.g., using the Runge–Kutta method).
-$$
-$$
-3. <strong>Visualization:</strong>
-   - Use matplotlib to plot the range <span class="arithmatex">\( R \)</span> as a function of <span class="arithmatex">\( \theta \)</span>.
-   - Plot trajectories for different initial conditions on the same graph to compare their behaviors.
-$$
-$$
-<strong>Sample Python Code:</strong></p>
+<p><strong>Developing a Computational Simulation:</strong></p>
+<p>A simple simulation tool can be developed in Python. Here’s an outline of how one might implement this:</p>
+<ol>
+<li><strong>Define Parameters:</strong></li>
+<li>Initial velocity <span class="arithmatex">\(v_0\)</span></li>
+<li>Launch angle <span class="arithmatex">\(\theta\)</span> (or a range of angles)</li>
+<li>Gravitational acceleration <span class="arithmatex">\(g\)</span></li>
+<li>
+<p>Optional: Launch height <span class="arithmatex">\( y_0 \)</span></p>
+</li>
+<li>
+<p><strong>Compute the Trajectory:</strong></p>
+</li>
+<li>For each <span class="arithmatex">\( \theta \)</span> value, compute the time of flight and range using the derived equations.</li>
+<li>
+<p>For enhanced realism, include air resistance by solving the modified differential equations numerically (e.g., using the Runge–Kutta method).</p>
+</li>
+<li>
+<p><strong>Visualization:</strong></p>
+</li>
+<li>Use matplotlib to plot the range <span class="arithmatex">\( R \)</span> as a function of <span class="arithmatex">\( \theta \)</span>.</li>
+<li>Plot trajectories for different initial conditions on the same graph to compare their behaviors.</li>
+</ol>
+<p><strong>Sample Python Code:</strong></p>
 <p>Below is a simplified code snippet that computes and plots the range as a function of the launch angle for a projectile launched from ground level without air resistance:</p>
 <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
