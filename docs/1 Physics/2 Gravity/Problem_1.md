@@ -12,7 +12,7 @@ For a body (like a planet or satellite) in a circular orbit around a central mas
 
 The gravitational force is:
 
-$F_g = \frac{G M m}{r^2}$
+$$F_g = \frac{G M m}{r^2}$$.
 
 where $G$ is the gravitational constant ($G \approx 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}$).
 
@@ -71,7 +71,7 @@ This relationship is a powerhouse in astronomy:
    - Earth’s mass: $M \approx 5.972 \times 10^{24} \, \text{kg}$
    - Check: $T^2 / r^3 = \frac{4 \pi^2}{G M} \approx 1.0 \times 10^{-13} \, \text{s}^2 \text{m}^{-3}$ (consistent with measured values).
    
-   
+
 2. **Earth’s Orbit Around the Sun**:
    - Orbital radius: $r \approx 1 \, \text{AU} = 1.496 \times 10^{11} \, \text{m}$
    - Orbital period: $T \approx 1 \, \text{year} = 3.156 \times 10^7 \, \text{s}$
