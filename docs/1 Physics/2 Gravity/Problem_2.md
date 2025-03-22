@@ -142,11 +142,10 @@ plt.show()
   - **Interstellar Travel:** Understanding these velocities is key for planning missions that eventually leave the gravitational bounds of the star system.
 
 ---
-
+ 
 ## Conclusion
 
 This document has defined and derived the key cosmic velocities, analyzed the physical parameters that affect them, and provided a Python simulation that calculates and visualizes these velocities for Earth, Mars, and Jupiter. Such insights are essential for planning space missions, from launching satellites to interplanetary travel and beyond.
 
 ---
 
-*Feel free to modify the code and discussion to match the specific requirements or further expand on the derivations as needed for your project.*
