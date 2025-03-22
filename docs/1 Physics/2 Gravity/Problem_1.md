@@ -16,7 +16,7 @@ $$
 F_g = \frac{G M m}{r^2}
 $$.
 
-where $G$ is the gravitational constant ($G \approx 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}$).
+where $G$ is the gravitational constant $G \approx 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}$.
 
 For circular motion, this force equals the centripetal force:
 
