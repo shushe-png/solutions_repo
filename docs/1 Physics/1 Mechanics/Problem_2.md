@@ -6,7 +6,7 @@ Below is a detailed exploration of the problem, organized into clear sections th
 
 **Derivation of the Equations of Motion:**
 
-For a projectile launched with an initial velocity $ v_0 $ at an angle $ \theta $ from the horizontal, we decompose the motion into horizontal and vertical components:
+For a projectile launched with an initial velocity  $v_0$ at an angle  $theta$ from the horizontal, we decompose the motion into horizontal and vertical components:
 
 - **Horizontal motion:**
   $$
@@ -15,26 +15,32 @@ For a projectile launched with an initial velocity $ v_0 $ at an angle $ \theta 
   (Since there is no horizontal acceleration in the ideal case, neglecting air resistance.)
 
 - **Vertical motion:**
-  $$
-  v_{y} = v_0 \sin \theta, \quad y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2
-  $$
-  where $ g $ is the acceleration due to gravity.
+  
+  $$ v_{y} = v_0 \sin \theta, \quad y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2$$
+  
+  where $$ g $$ is the acceleration due to gravity.
 
 **Solving the Differential Equation:**
 
 The vertical motion equation is derived from the second-order differential equation:
+
 $$
 \frac{d^2 y}{dt^2} = -g.
 $$
+
 Integrating once gives the vertical velocity:
+
 $$
 \frac{dy}{dt} = v_0 \sin \theta - g t,
 $$
+
 and integrating again yields the vertical displacement:
+
 $$
 y(t) = v_0 \sin \theta \, t - \frac{1}{2} g t^2 + y_0.
 $$
-For a launch from ground level, $ y_0 = 0 $.
+
+For a launch from ground level, $$ y_0 = 0 $$.
 
 **Family of Solutions:**
 
@@ -151,6 +157,10 @@ plt.legend()
 plt.grid(True)
 plt.show()
 ```
+
+![alt text](image.png)
+
+[problem 2 notes](https://colab.research.google.com/drive/1zzfWonRhVOmlJMqimYLAAzpdGPqIarxC?usp=sharing)
 
 This code calculates the range for each angle and produces a clear plot. It demonstrates how the maximum range occurs at $ 45^\circ $ under ideal conditions.
 
