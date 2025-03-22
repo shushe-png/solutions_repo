@@ -12,7 +12,9 @@ For a body (like a planet or satellite) in a circular orbit around a central mas
 
 The gravitational force is:
 
-$$F_g = \frac{G M m}{r^2}$$.
+$$ 
+F_g = \frac{G M m}{r^2}
+$$.
 
 where $G$ is the gravitational constant ($G \approx 6.67430 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}$).
 
