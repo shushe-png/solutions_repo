@@ -2,34 +2,34 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# --- Simulation parameters ---
+\# --- Simulation parameters ---
 dt = 0.001               # time step
 total_time = 5           # total simulation time
 num_steps = int(total_time / dt)
 
-# Particle properties
+\# Particle properties
 q = 1.0                  # charge (Coulombs)
 m = 1.0                  # mass (kg)
 
-# Initial conditions: position and velocity
+\# Initial conditions: position and velocity
 initial_position = np.array([0.0, 0.0, 0.0])
 initial_velocity = np.array([1.0, 0.0, 0.5])  # Can be tuned to see helical motion
 
-# Field configurations (modify these to explore different scenarios)
+\# Field configurations (modify these to explore different scenarios)
 
-# 1. Uniform magnetic field only (E = 0)
+\# 1. Uniform magnetic field only (E = 0)
 E_field = np.array([0.0, 0.0, 0.0])
 B_field = np.array([0.0, 0.0, 1.0])
 
-# Uncomment one of the following scenarios for combined fields or crossed fields:
+\# Uncomment one of the following scenarios for combined fields or crossed fields:
 
-# 2. Combined uniform electric and magnetic fields:
-# E_field = np.array([0.5, 0.0, 0.0])
-# B_field = np.array([0.0, 0.0, 1.0])
+\# 2. Combined uniform electric and magnetic fields:
+\# E_field = np.array([0.5, 0.0, 0.0])
+\# B_field = np.array([0.0, 0.0, 1.0])
 
-# 3. Crossed electric and magnetic fields (E ⊥ B):
-# E_field = np.array([0.5, 0.0, 0.0])
-# B_field = np.array([0.0, 1.0, 0.0])
+\# 3. Crossed electric and magnetic fields (E ⊥ B):
+\# E_field = np.array([0.5, 0.0, 0.0])
+\# B_field = np.array([0.0, 1.0, 0.0])
 
 
 def lorentz_acceleration(v, E, B, q, m):
@@ -86,13 +86,13 @@ def simulate_motion(initial_position, initial_velocity, dt, num_steps, E, B, q, 
     
     return positions, velocities
 
-# Run the simulation
+\# Run the simulation
 positions, velocities = simulate_motion(initial_position, initial_velocity,
                                         dt, num_steps, E_field, B_field, q, m)
 
-# --- Visualization ---
+\# --- Visualization ---
 
-# 2D Plot: x vs y
+\# 2D Plot: x vs y
 plt.figure(figsize=(8, 6))
 plt.plot(positions[:, 0], positions[:, 1])
 plt.title("2D Trajectory (x vs y)")
@@ -104,7 +104,7 @@ plt.show()
 
 ![alt text](image-9.png)
 
-# 2D Plot: x vs z
+\# 2D Plot: x vs z
 plt.figure(figsize=(8, 6))
 plt.plot(positions[:, 0], positions[:, 2])
 plt.title("2D Trajectory (x vs z)")
@@ -116,7 +116,7 @@ plt.show()
 
 ![alt text](image-10.png)
 
-# 3D Plot of the trajectory
+\# 3D Plot of the trajectory
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(positions[:, 0], positions[:, 1], positions[:, 2], lw=2)
