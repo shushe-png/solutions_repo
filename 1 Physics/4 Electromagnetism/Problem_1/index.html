@@ -71,8 +71,6 @@
 <li class="toctree-l1 current"><a class="reference internal current">4 Electromagnetism</a>
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
-<ul class="current">
-</ul>
 </li>
 </ul>
 </li>
@@ -174,27 +172,27 @@
 <p>import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D</p>
-<h1 id="-simulation-parameters-">--- Simulation parameters ---</h1>
-<p>dt = 0.001               # time step
+<p># --- Simulation parameters ---
+dt = 0.001               # time step
 total_time = 5           # total simulation time
 num_steps = int(total_time / dt)</p>
-<h1 id="particle-properties">Particle properties</h1>
-<p>q = 1.0                  # charge (Coulombs)
+<p># Particle properties
+q = 1.0                  # charge (Coulombs)
 m = 1.0                  # mass (kg)</p>
-<h1 id="initial-conditions-position-and-velocity">Initial conditions: position and velocity</h1>
-<p>initial_position = np.array([0.0, 0.0, 0.0])
+<p># Initial conditions: position and velocity
+initial_position = np.array([0.0, 0.0, 0.0])
 initial_velocity = np.array([1.0, 0.0, 0.5])  # Can be tuned to see helical motion</p>
-<h1 id="field-configurations-modify-these-to-explore-different-scenarios">Field configurations (modify these to explore different scenarios)</h1>
-<h1 id="1-uniform-magnetic-field-only-e-0">1. Uniform magnetic field only (E = 0)</h1>
-<p>E_field = np.array([0.0, 0.0, 0.0])
+<p># Field configurations (modify these to explore different scenarios)</p>
+<p># 1. Uniform magnetic field only (E = 0)
+E_field = np.array([0.0, 0.0, 0.0])
 B_field = np.array([0.0, 0.0, 1.0])</p>
-<h1 id="uncomment-one-of-the-following-scenarios-for-combined-fields-or-crossed-fields">Uncomment one of the following scenarios for combined fields or crossed fields:</h1>
-<h1 id="2-combined-uniform-electric-and-magnetic-fields">2. Combined uniform electric and magnetic fields:</h1>
-<h1 id="e_field-nparray05-00-00">E_field = np.array([0.5, 0.0, 0.0])</h1>
-<h1 id="b_field-nparray00-00-10">B_field = np.array([0.0, 0.0, 1.0])</h1>
-<h1 id="3-crossed-electric-and-magnetic-fields-e-b">3. Crossed electric and magnetic fields (E ⊥ B):</h1>
-<h1 id="e_field-nparray05-00-00_1">E_field = np.array([0.5, 0.0, 0.0])</h1>
-<h1 id="b_field-nparray00-10-00">B_field = np.array([0.0, 1.0, 0.0])</h1>
+<p># Uncomment one of the following scenarios for combined fields or crossed fields:</p>
+<p># 2. Combined uniform electric and magnetic fields:
+# E_field = np.array([0.5, 0.0, 0.0])
+# B_field = np.array([0.0, 0.0, 1.0])</p>
+<p># 3. Crossed electric and magnetic fields (E ⊥ B):
+# E_field = np.array([0.5, 0.0, 0.0])
+# B_field = np.array([0.0, 1.0, 0.0])</p>
 <p>def lorentz_acceleration(v, E, B, q, m):
     """
     Compute acceleration from Lorentz force:
@@ -245,12 +243,12 @@ for i in range(num_steps):
 
 return positions, velocities
 </code></pre>
-<h1 id="run-the-simulation">Run the simulation</h1>
-<p>positions, velocities = simulate_motion(initial_position, initial_velocity,
+<p># Run the simulation
+positions, velocities = simulate_motion(initial_position, initial_velocity,
                                         dt, num_steps, E_field, B_field, q, m)</p>
-<h1 id="-visualization-">--- Visualization ---</h1>
-<h1 id="2d-plot-x-vs-y">2D Plot: x vs y</h1>
-<p>plt.figure(figsize=(8, 6))
+<p># --- Visualization ---</p>
+<p># 2D Plot: x vs y
+plt.figure(figsize=(8, 6))
 plt.plot(positions[:, 0], positions[:, 1])
 plt.title("2D Trajectory (x vs y)")
 plt.xlabel("x")
@@ -259,8 +257,8 @@ plt.grid(True)
 plt.axis("equal")
 plt.show()</p>
 <p><img alt="alt text" src="../image-9.png"/></p>
-<h1 id="2d-plot-x-vs-z">2D Plot: x vs z</h1>
-<p>plt.figure(figsize=(8, 6))
+<p># 2D Plot: x vs z
+plt.figure(figsize=(8, 6))
 plt.plot(positions[:, 0], positions[:, 2])
 plt.title("2D Trajectory (x vs z)")
 plt.xlabel("x")
@@ -269,8 +267,8 @@ plt.grid(True)
 plt.axis("equal")
 plt.show()</p>
 <p><img alt="alt text" src="../image-10.png"/></p>
-<h1 id="3d-plot-of-the-trajectory">3D Plot of the trajectory</h1>
-<p>fig = plt.figure(figsize=(10, 8))
+<p># 3D Plot of the trajectory
+fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(positions[:, 0], positions[:, 1], positions[:, 2], lw=2)
 ax.set_title("3D Particle Trajectory")
