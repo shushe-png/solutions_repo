@@ -1,269 +1,129 @@
-# Problem 1
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
-## Overview
+# --- Simulation parameters ---
+dt = 0.001               # time step
+total_time = 5           # total simulation time
+num_steps = int(total_time / dt)
 
-We represent a circuit as a graph where:
-- **Nodes** represent junctions.
-- **Edges** represent resistors with weights equal to their resistance values.
+# Particle properties
+q = 1.0                  # charge (Coulombs)
+m = 1.0                  # mass (kg)
 
-The goal is to compute the equivalent resistance between two terminal nodes by iteratively reducing the graph using two main reduction rules:
+# Initial conditions: position and velocity
+initial_position = np.array([0.0, 0.0, 0.0])
+initial_velocity = np.array([1.0, 0.0, 0.5])  # Can be tuned to see helical motion
 
-1. **Series Reduction:**  
-   If a non-terminal node has degree 2, its two incident resistors (with resistances $R_1$ and $R_2$) are in series and can be replaced by a single resistor with resistance:
-   $$
-   R_{\text{series}} = R_1 + R_2
-   $$
+# Field configurations (modify these to explore different scenarios)
 
-2. **Parallel Reduction:**  
-   If two nodes are connected by multiple resistors (with resistances $R_1, R_2, \ldots, R_n$), they are in parallel and can be replaced by a single resistor with equivalent resistance given by:
-   $$
-   \frac{1}{R_{\text{eq}}} = \sum_{i=1}^{n} \frac{1}{R_i} \quad \text{or} \quad R_{\text{eq}} = \left( \sum_{i=1}^{n} \frac{1}{R_i} \right)^{-1}
-   $$
+# 1. Uniform magnetic field only (E = 0)
+E_field = np.array([0.0, 0.0, 0.0])
+B_field = np.array([0.0, 0.0, 1.0])
 
-By iteratively applying these reductions, even nested combinations will be simplified, ultimately leaving a single resistor between the two terminal nodes.
+# Uncomment one of the following scenarios for combined fields or crossed fields:
 
----
+# 2. Combined uniform electric and magnetic fields:
+# E_field = np.array([0.5, 0.0, 0.0])
+# B_field = np.array([0.0, 0.0, 1.0])
 
-## Pseudocode
+# 3. Crossed electric and magnetic fields (E ⊥ B):
+# E_field = np.array([0.5, 0.0, 0.0])
+# B_field = np.array([0.0, 1.0, 0.0])
 
-```
-Input: Graph G with nodes and edges (each edge has a resistance attribute),
-       Terminal nodes: start, end
 
-function compute_equivalent_resistance(G, start, end):
-    while (G has more than one edge between start and end):
-        
-        // Parallel Reduction:
-        for each pair of nodes (u, v) in G:
-            if there are multiple edges connecting u and v:
-                let R_parallel = 1 / (sum(1/R for each edge between u and v))
-                remove all edges between u and v
-                add a single edge between u and v with resistance R_parallel
-
-        // Series Reduction:
-        for each node v in G (excluding start and end):
-            if degree(v) == 2:
-                Let u and w be the two neighbors of v
-                Let R1 = resistance of edge (u, v)
-                Let R2 = resistance of edge (v, w)
-                Let R_series = R1 + R2
-                Remove node v and its incident edges from G
-
-                if an edge already exists between u and w:
-                    Let R_existing = resistance of edge (u, w)
-                    Replace edge (u, w) with:
-                        R_new = 1 / (1/R_existing + 1/R_series)
-                else:
-                    Add edge (u, w) with weight R_series
-
-        if no series or parallel reduction was performed in this iteration:
-            break
-
-    if an edge between start and end exists:
-        return the resistance of that edge (i.e. the equivalent resistance)
-    else:
-        return "Reduction incomplete or non-reducible configuration"
-```
-
-**Explanation:**  
-- **Series Reduction:** The algorithm checks for nodes (other than the terminal nodes) with exactly two connections. The resistors on these connections are summed, and the node is removed.
-- **Parallel Reduction:** For every pair of nodes connected by multiple resistors, the equivalent parallel resistance is computed using:
-  $$
-  R_{\text{eq}} = \left( \frac{1}{R_1} + \frac{1}{R_2} + \cdots + \frac{1}{R_n} \right)^{-1}
-  $$
-- **Iterative Process:** Reductions are repeated, which allows the algorithm to handle nested combinations. After each reduction, new series or parallel configurations may emerge, and the process continues until the graph is simplified.
-
----
-
-## Python Implementation
-
-Below is the full Python implementation using NetworkX:
-
-```python
-import networkx as nx
-
-def parallel_reduce(G):
-    """Detect and reduce parallel edges in the graph."""
-    reduced = False
-    # Iterate over all edges and check for multiple edges between the same nodes
-    for u, v in list(G.edges()):
-        if G.number_of_edges(u, v) > 1:
-            # Retrieve all resistance values for edges between u and v
-            resistances = [G[u][v][key]['resistance'] for key in list(G[u][v].keys())]
-            # Calculate equivalent resistance in parallel: R_eq = 1 / (sum(1/R))
-            inv_sum = sum(1.0 / R for R in resistances)
-            R_eq = 1.0 / inv_sum
-            # Remove all existing parallel edges between u and v
-            G.remove_edges_from([(u, v, key) for key in list(G[u][v].keys())])
-            # Add one edge with the equivalent resistance
-            G.add_edge(u, v, resistance=R_eq)
-            reduced = True
-    return reduced
-
-def series_reduce(G, terminals):
-    """Detect and reduce series connections.
-       'terminals' is a set of nodes that should not be removed.
+def lorentz_acceleration(v, E, B, q, m):
     """
-    reduced = False
-    nodes_to_check = list(G.nodes())
-    for node in nodes_to_check:
-        # Skip terminal nodes
-        if node in terminals:
-            continue
-        # For series, the node should have degree 2
-        if G.degree(node) == 2:
-            # Get the two neighbors of the node
-            neighbors = list(G[node])
-            if len(neighbors) != 2:
-                continue
-            u, w = neighbors
-            # Assume one edge exists from node to each neighbor after parallel reduction
-            R1 = list(G[node][u].values())[0]['resistance']
-            R2 = list(G[node][w].values())[0]['resistance']
-            # Series equivalent: R_series = R1 + R2
-            R_series = R1 + R2
+    Compute acceleration from Lorentz force:
+    a = (q/m)*(E + v x B)
+    """
+    return (q/m) * (E + np.cross(v, B))
 
-            # Remove the node and its incident edges
-            G.remove_node(node)
 
-            # Check if an edge already exists between u and w
-            if G.has_edge(u, w):
-                existing_resistances = [G[u][w][key]['resistance'] for key in list(G[u][w].keys())]
-                # Combine in parallel with existing resistor(s)
-                resistors = existing_resistances + [R_series]
-                inv_sum = sum(1.0 / R for R in resistors)
-                R_new = 1.0 / inv_sum
-                G.remove_edges_from([(u, w, key) for key in list(G[u][w].keys())])
-                G.add_edge(u, w, resistance=R_new)
-            else:
-                G.add_edge(u, w, resistance=R_series)
-            reduced = True
-    return reduced
-
-def compute_equivalent_resistance(G, start, end):
-    # Convert to MultiGraph to support parallel edges if not already
-    if not isinstance(G, nx.MultiGraph):
-        G = nx.MultiGraph(G)
+def rk4_step(position, velocity, dt, E, B, q, m):
+    """
+    One step of RK4 integration for a charged particle.
+    """
+    # Define the derivative function
+    def derivatives(pos, vel):
+        return vel, lorentz_acceleration(vel, E, B, q, m)
     
-    terminals = {start, end}
-    changed = True
-    while changed:
-        changed = False
-        # Apply parallel reduction
-        if parallel_reduce(G):
-            changed = True
-        # Apply series reduction
-        if series_reduce(G, terminals):
-            changed = True
+    # k1 values
+    k1_v, k1_a = derivatives(position, velocity)
+    
+    # k2 values
+    k2_v, k2_a = derivatives(position + 0.5 * dt * k1_v,
+                             velocity + 0.5 * dt * k1_a)
+    
+    # k3 values
+    k3_v, k3_a = derivatives(position + 0.5 * dt * k2_v,
+                             velocity + 0.5 * dt * k2_a)
+    
+    # k4 values
+    k4_v, k4_a = derivatives(position + dt * k3_v,
+                             velocity + dt * k3_a)
+    
+    new_position = position + (dt / 6) * (k1_v + 2 * k2_v + 2 * k3_v + k4_v)
+    new_velocity = velocity + (dt / 6) * (k1_a + 2 * k2_a + 2 * k3_a + k4_a)
+    
+    return new_position, new_velocity
 
-    # If an edge exists between start and end, return its resistance
-    if G.has_edge(start, end):
-        resistance = list(G[start][end].values())[0]['resistance']
-        return resistance
-    else:
-        return None
+def simulate_motion(initial_position, initial_velocity, dt, num_steps, E, B, q, m):
+    """
+    Simulate the particle motion over time using RK4 integration.
+    Returns arrays of positions and velocities.
+    """
+    pos = np.array(initial_position, dtype=float)
+    vel = np.array(initial_velocity, dtype=float)
+    
+    positions = np.empty((num_steps, 3))
+    velocities = np.empty((num_steps, 3))
+    
+    for i in range(num_steps):
+        positions[i] = pos
+        velocities[i] = vel
+        pos, vel = rk4_step(pos, vel, dt, E, B, q, m)
+    
+    return positions, velocities
 
-# --- Testing the implementation with examples ---
+# Run the simulation
+positions, velocities = simulate_motion(initial_position, initial_velocity,
+                                        dt, num_steps, E_field, B_field, q, m)
 
-def test_circuit_examples():
-    examples = {}
+# --- Visualization ---
 
-    # Example 1: Simple Series - Two resistors in series between A and B.
-    G1 = nx.MultiGraph()
-    G1.add_edge('A', 'X', resistance=4)
-    G1.add_edge('X', 'B', resistance=6)
-    examples['Series (4Ω + 6Ω)'] = (G1, 'A', 'B')
+# 2D Plot: x vs y
+plt.figure(figsize=(8, 6))
+plt.plot(positions[:, 0], positions[:, 1])
+plt.title("2D Trajectory (x vs y)")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.grid(True)
+plt.axis("equal")
+plt.show()
 
-    # Example 2: Simple Parallel - Two resistors in parallel between A and B.
-    G2 = nx.MultiGraph()
-    G2.add_edge('A', 'B', resistance=4)
-    G2.add_edge('A', 'B', resistance=6)
-    examples['Parallel (4Ω || 6Ω)'] = (G2, 'A', 'B')
+![alt text](image-9.png)
 
-    # Example 3: Nested Combination:
-    # A circuit where A-X and X-B are in series, in parallel with a direct A-B resistor.
-    G3 = nx.MultiGraph()
-    G3.add_edge('A', 'X', resistance=3)
-    G3.add_edge('X', 'B', resistance=3)
-    G3.add_edge('A', 'B', resistance=4)
-    examples['Nested (Series and Parallel)'] = (G3, 'A', 'B')
+# 2D Plot: x vs z
+plt.figure(figsize=(8, 6))
+plt.plot(positions[:, 0], positions[:, 2])
+plt.title("2D Trajectory (x vs z)")
+plt.xlabel("x")
+plt.ylabel("z")
+plt.grid(True)
+plt.axis("equal")
+plt.show()
 
-    # Test each example
-    for desc, (G, start, end) in examples.items():
-        Req = compute_equivalent_resistance(G, start, end)
-        if Req is not None:
-            print(f"{desc} => Equivalent Resistance: {Req:.2f} Ω")
-        else:
-            print(f"{desc} => Could not compute.")
+![alt text](image-10.png)
 
-if __name__ == "__main__":
-    test_circuit_examples()
-```
---- Series (4Ω + 6Ω) ---
+# 3D Plot of the trajectory
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot(positions[:, 0], positions[:, 1], positions[:, 2], lw=2)
+ax.set_title("3D Particle Trajectory")
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.set_zlabel("z")
+plt.show()
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-
-Equivalent Resistance: 10.00 Ω
-
---- Parallel (4Ω || 6Ω) ---
-
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-
-Equivalent Resistance: 2.40 Ω
-
---- Nested (Series and Parallel) ---
-
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
-
-Equivalent Resistance: 2.40 Ω
-
----
-
-## Explanation of the Implementation
-
-1. **Graph Construction:**  
-   We use a `MultiGraph` from NetworkX so that multiple (parallel) edges between the same nodes can be maintained. Each edge carries a resistance value.
-
-2. **Parallel Reduction (`parallel_reduce`):**  
-   This function finds node pairs connected by multiple edges and computes their equivalent resistance using:
-   $$
-   R_{\text{eq}} = \left( \sum_{i=1}^{n} \frac{1}{R_i} \right)^{-1}
-   $$
-   It then replaces the multiple edges with a single edge.
-
-3. **Series Reduction (`series_reduce`):**  
-   The function finds non-terminal nodes with exactly two connections. For a node with resistances $R_1$ and $R_2$, the series equivalent is computed as:
-   $$
-   R_{\text{series}} = R_1 + R_2
-   $$
-   The node is removed and its neighbors are reconnected. If an edge already exists, the new resistor is combined in parallel with the existing one.
-
-4. **Iterative Process:**  
-   In `compute_equivalent_resistance`, the algorithm repeatedly applies both reductions until no further changes occur, ultimately leaving a single edge between the start and end nodes.
-
-5. **Testing Examples:**  
-   - **Example 1:** Two resistors in series.
-   - **Example 2:** Two resistors in parallel.
-   - **Example 3:** A nested combination where a series pair is in parallel with a direct resistor.
-
----
-
-## Algorithm Analysis
-
-- **Efficiency:**  
-  The algorithm iteratively scans the graph for reducible configurations. For series–parallel reducible networks, it converges quickly. For large or non-reducible networks, the scanning could be less efficient.
-
-- **Potential Improvements:**  
-  - **Optimized Data Structures:** Track reducible nodes/edges to minimize repeated scanning.
-  - **Advanced Reductions:** Incorporate Y–$\Delta$ (star-delta) transformations or nodal analysis for non-series–parallel networks.
-  - **Parallel Processing:** Independent reductions might be parallelized for large networks.
-
----
-
-This solution demonstrates how graph theory and iterative reduction can be used to compute the equivalent resistance in a circuit, with mathematical expressions formatted using dollar signs for clear presentation.
+![alt text](image-11.png)
