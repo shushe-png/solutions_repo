@@ -92,6 +92,46 @@
 <ul class="current">
 <li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#1-materials-and-setup">1. Materials and Setup</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#materials">Materials:</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#setup">Setup:</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-data-collection">2. Data Collection</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-calculations">3. Calculations</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#31-estimating-g">3.1 Estimating \(g\)</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#32-uncertainty-propagation">3.2 Uncertainty Propagation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#33-example-data">3.3 Example Data</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-visuals">4. Visuals</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#41-pendulum-schematic">4.1 Pendulum Schematic</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#42-visualizing-measured-oscillation-times">4.2 Visualizing Measured Oscillation Times</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_1"></a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#5-analysis-and-discussion">5. Analysis and Discussion</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#comparison-to-the-standard-value">Comparison to the Standard Value</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#sources-of-uncertainty-and-their-impact">Sources of Uncertainty and Their Impact</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deliverables">Deliverables</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -171,7 +211,259 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<p>Below is an integrated Markdown document that includes both the explanation, calculations, and the Python code blocks for generating the schematic of a pendulum and a bar chart of the measured oscillation times.</p>
+<hr/>
+<h1 id="measuring-earths-gravitational-acceleration-with-a-pendulum">Measuring Earth's Gravitational Acceleration with a Pendulum</h1>
+<p>The acceleration due to gravity, <span class="arithmatex">\(g\)</span>, is a fundamental constant influencing many physical phenomena. One classic method to determine <span class="arithmatex">\(g\)</span> is by measuring the period of a simple pendulum. This experiment illustrates not only the method of measurement but also emphasizes rigorous uncertainty analysis.</p>
+<hr/>
+<h2 id="1-materials-and-setup">1. Materials and Setup</h2>
+<h3 id="materials">Materials:</h3>
+<ul>
+<li>A string (e.g., 1 or 1.5 meters long)</li>
+<li>A small weight (e.g., a bag of coins, a key chain)</li>
+<li>Stopwatch (or smartphone timer)</li>
+<li>Ruler or measuring tape</li>
+</ul>
+<h3 id="setup">Setup:</h3>
+<ol>
+<li><strong>Pendulum Construction:</strong> </li>
+<li>Attach the weight to the string.</li>
+<li>Fix the other end of the string to a sturdy support.</li>
+<li><strong>Length Measurement:</strong> </li>
+<li>Measure the length <span class="arithmatex">\(L\)</span> of the pendulum from the suspension point to the center of mass of the weight.</li>
+<li>
+<p>Record the resolution of your measuring tool. For example, if the ruler has a resolution of 1 mm, the uncertainty in <span class="arithmatex">\(L\)</span> is estimated as:</p>
+<p>$$
+ \Delta L = \frac{1 \text{ mm}}{2} = 0.5 \text{ mm}
+ $$</p>
+</li>
+</ol>
+<hr/>
+<h2 id="2-data-collection">2. Data Collection</h2>
+<ol>
+<li><strong>Oscillation Measurement:</strong> </li>
+<li>Displace the pendulum by less than <span class="arithmatex">\(15^\circ\)</span> and release it.</li>
+<li>Measure the time for 10 complete oscillations (<span class="arithmatex">\(T_{10}\)</span>). Repeat this process 10 times.</li>
+<li>
+<p>Record all 10 measurements.</p>
+</li>
+<li>
+<p><strong>Calculating the Mean and Uncertainty:</strong> </p>
+</li>
+<li>Let the 10 measurements for 10 oscillations be:<br/>
+     $$
+     T_{10,1}, T_{10,2}, \dots, T_{10,10}
+     $$</li>
+<li>
+<p>The mean time for 10 oscillations is:</p>
+<p>$$
+ \bar{T}<em>{10} = \frac{1}{10} \sum</em>{i=1}^{10} T_{10,i}
+ $$</p>
+</li>
+<li>
+<p>Compute the standard deviation <span class="arithmatex">\(\sigma_{T_{10}}\)</span> of these measurements.</p>
+</li>
+<li>
+<p>The uncertainty in the mean time is:</p>
+<p>$$
+ \Delta \bar{T}<em>{10} = \frac{\sigma</em>{T_{10}}}{\sqrt{10}}
+ $$</p>
+</li>
+<li>
+<p><strong>Determine the Period <span class="arithmatex">\(T\)</span> of One Oscillation:</strong></p>
+</li>
+</ol>
+<p>$$
+   T = \frac{\bar{T}<em>{10}}{10} \quad \text{with uncertainty} \quad \Delta T = \frac{\Delta \bar{T}</em>{10}}{10}
+   $$</p>
+<hr/>
+<h2 id="3-calculations">3. Calculations</h2>
+<h3 id="31-estimating-g">3.1 Estimating <span class="arithmatex">\(g\)</span></h3>
+<p>The period of a simple pendulum (for small oscillations) is given by:</p>
+<div class="arithmatex">\[
+T = 2\pi \sqrt{\frac{L}{g}}
+\]</div>
+<p>Solving for <span class="arithmatex">\(g\)</span>:</p>
+<div class="arithmatex">\[
+g = \frac{4\pi^2 L}{T^2}
+\]</div>
+<h3 id="32-uncertainty-propagation">3.2 Uncertainty Propagation</h3>
+<p>If <span class="arithmatex">\(g\)</span> is calculated using <span class="arithmatex">\(L\)</span> and <span class="arithmatex">\(T\)</span> with uncertainties <span class="arithmatex">\(\Delta L\)</span> and <span class="arithmatex">\(\Delta T\)</span>, respectively, then the relative uncertainty in <span class="arithmatex">\(g\)</span> is given by:</p>
+<div class="arithmatex">\[
+\frac{\Delta g}{g} = \sqrt{\left(\frac{\Delta L}{L}\right)^2 + \left(2\frac{\Delta T}{T}\right)^2}
+\]</div>
+<p>Thus, the absolute uncertainty in <span class="arithmatex">\(g\)</span> is:</p>
+<div class="arithmatex">\[
+\Delta g = g \times \sqrt{\left(\frac{\Delta L}{L}\right)^2 + \left(2\frac{\Delta T}{T}\right)^2}
+\]</div>
+<h3 id="33-example-data">3.3 Example Data</h3>
+<p>Suppose you recorded the following times for 10 oscillations:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Trial</th>
+<th style="text-align: center;"><span class="arithmatex">\(T_{10}\)</span> (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">20.15</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">20.10</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">20.20</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">20.05</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">20.18</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">20.12</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">20.16</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">20.11</td>
+</tr>
+<tr>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">20.14</td>
+</tr>
+<tr>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">20.17</td>
+</tr>
+</tbody>
+</table>
+<p>Assume:
+- <span class="arithmatex">\(L = 1.000 \, \text{m}\)</span> with <span class="arithmatex">\(\Delta L = 0.0005 \, \text{m}\)</span>.
+- Mean time for 10 oscillations: <span class="arithmatex">\(\bar{T}_{10} \approx 20.14 \, \text{s}\)</span><br/>
+<span class="arithmatex">\(\Rightarrow\)</span> Period for one oscillation: <span class="arithmatex">\(T \approx 2.014 \, \text{s}\)</span>
+- Suppose <span class="arithmatex">\(\sigma_{T_{10}} \approx 0.05 \, \text{s}\)</span> so that:</p>
+<p>$
+  \Delta \bar{T}_{10} \approx \frac{0.05}{\sqrt{10}} \approx 0.0158 \, \text{s} \quad \text{and} \quad \Delta T \approx \frac{0.0158}{10} = 0.00158 \, \text{s}
+  $</p>
+<p>Then:</p>
+<p>$
+g \approx \frac{4\pi^2 \times 1.000}{(2.014)^2} \approx \frac{39.478}{4.056} \approx 9.74 \, \text{m/s}^2
+$</p>
+<p>And the relative uncertainties:</p>
+<p>$
+\frac{\Delta L}{L} \approx 0.0005, \quad \frac{\Delta T}{T} \approx \frac{0.00158}{2.014} \approx 0.000785
+$</p>
+<p>$
+\frac{\Delta g}{g} = \sqrt{(0.0005)^2 + \left(2 \times 0.000785\right)^2} \approx 0.00149
+$</p>
+<p>$
+\Delta g \approx 9.74 \times 0.00149 \approx 0.0145 \, \text{m/s}^2
+$</p>
+<p>Thus, the measured value of <span class="arithmatex">\(g\)</span> is:</p>
+<p>$
+g = 9.74 \pm 0.015 \, \text{m/s}^2
+$</p>
+<hr/>
+<h2 id="4-visuals">4. Visuals</h2>
+<h3 id="41-pendulum-schematic">4.1 Pendulum Schematic</h3>
+<p>The following code produces a schematic diagram of a pendulum:</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Pendulum parameters
+L = 1.0  # pendulum length in meters
+theta = np.pi/6  # 30 degrees angle
+
+# Calculate pendulum bob position (x, y)
+x = L * np.sin(theta)
+y = -L * np.cos(theta)
+
+# Create the schematic plot
+plt.figure(figsize=(6,6))
+plt.plot([0, x], [0, y], 'k-', lw=2)  # pendulum string
+plt.plot(x, y, 'ro', markersize=12)    # pendulum bob
+
+# Draw an arc to represent the angle theta
+arc_theta = np.linspace(0, theta, 100)
+arc_x = 0.2 * np.sin(arc_theta)
+arc_y = -0.2 * np.cos(arc_theta)
+plt.plot(arc_x, arc_y, 'b--', lw=1)
+
+plt.text(0.25, -0.05, r'$\theta$', color='blue', fontsize=14)
+plt.title("Pendulum Schematic")
+plt.xlabel("x (m)")
+plt.ylabel("y (m)")
+plt.xlim(-1.2*L, 1.2*L)
+plt.ylim(-1.2*L, 0.2*L)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.grid(True)
+plt.show()
+</code></pre>
+<p><img alt="alt text" src="../image.png"/></p>
+<h3 id="42-visualizing-measured-oscillation-times">4.2 Visualizing Measured Oscillation Times</h3>
+<p>This code generates a bar chart to visualize the recorded times for 10 oscillations across 10 trials:</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Example data for 10 measurements (time for 10 oscillations in seconds)
+trials = np.arange(1, 11)
+T10_measurements = [20.15, 20.10, 20.20, 20.05, 20.18, 20.12, 20.16, 20.11, 20.14, 20.17]
+
+plt.figure(figsize=(8, 4))
+plt.bar(trials, T10_measurements, color='skyblue', edgecolor='black')
+plt.xlabel("Trial Number")
+plt.ylabel("Time for 10 Oscillations (s)")
+plt.title("Measured Oscillation Times")
+plt.xticks(trials)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+</code></pre>
+<h2 id="_1"><img alt="alt text" src="../image-1.png"/></h2>
+<h2 id="5-analysis-and-discussion">5. Analysis and Discussion</h2>
+<h3 id="comparison-to-the-standard-value">Comparison to the Standard Value</h3>
+<ul>
+<li><strong>Standard Value:</strong> <span class="arithmatex">\(g \approx 9.81 \, \text{m/s}^2\)</span></li>
+<li><strong>Measured Value:</strong> <span class="arithmatex">\(g \approx 9.74 \, \text{m/s}^2\)</span> (from our example data)</li>
+<li>The slight discrepancy can be attributed to measurement uncertainties or local variations in <span class="arithmatex">\(g\)</span>.</li>
+</ul>
+<h3 id="sources-of-uncertainty-and-their-impact">Sources of Uncertainty and Their Impact</h3>
+<ol>
+<li><strong>Measurement Resolution:</strong> </li>
+<li>The uncertainty in <span class="arithmatex">\(L\)</span> (half the smallest division of the ruler) contributes to the overall uncertainty.</li>
+<li><strong>Timing Variability:</strong> </li>
+<li>Human reaction time and potential stopwatch errors introduce variability in <span class="arithmatex">\(T_{10}\)</span>. Repeated measurements and calculating the standard deviation help quantify this uncertainty.</li>
+<li><strong>Assumptions:</strong> </li>
+<li>The pendulum period formula <span class="arithmatex">\(T = 2\pi\sqrt{L/g}\)</span> assumes small oscillation angles (typically <span class="arithmatex">\(&lt;15^\circ\)</span>). Deviations from this condition introduce systematic errors.</li>
+<li><strong>Experimental Limitations:</strong> </li>
+<li>Air resistance, friction at the pivot, and alignment errors may also affect the measurements.</li>
+</ol>
+<hr/>
+<h2 id="deliverables">Deliverables</h2>
+<ol>
+<li><strong>Tabulated Data:</strong> </li>
+<li>A table of 10 measurements for the time of 10 oscillations.</li>
+<li>Calculated values for the mean time <span class="arithmatex">\(\bar{T}_{10}\)</span>, period <span class="arithmatex">\(T\)</span>, and their uncertainties.</li>
+<li><strong>Calculated <span class="arithmatex">\(g\)</span> and Its Uncertainty:</strong> </li>
+<li>The value of <span class="arithmatex">\(g\)</span> along with the uncertainty propagated from the measurements.</li>
+<li><strong>Visualizations:</strong> </li>
+<li>A schematic diagram of the pendulum.</li>
+<li>A bar chart of the measured oscillation times.</li>
+<li><strong>Discussion:</strong> </li>
+<li>A detailed discussion on the sources of uncertainty and their impact on the final measurement of <span class="arithmatex">\(g\)</span>.</li>
+</ol>
+<hr/>
+<p>This integrated document combines theoretical background, experimental data, uncertainty analysis, and visualizations, providing a complete report on measuring Earth's gravitational acceleration with a pendulum.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
